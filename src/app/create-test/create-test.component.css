@@ -1,0 +1,18 @@
+mat-card {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 2em;
+}
+.mat-accept {
+    background-color: green;
+    color: #fff;
+}
+#buttons-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2em;
+}
+#buttons-row button {
+    flex-grow: 1;
+    margin: 0 1em;
+}
