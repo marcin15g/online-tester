@@ -11,6 +11,18 @@ export class CreateTestComponent implements OnInit {
   dynamicForm: FormGroup;
   submitted = false;
   visibleQuestions = 1;
+  question = {
+    question: ['', Validators.required],
+    isMandatory: [false],
+    answer1: [''],
+    answer2: [''],
+    answer3: [''],
+    answer4: [''],
+    isCorrect1: [''],
+    isCorrect2: [''],
+    isCorrect3: [''],
+    isCorrect4: [''],
+  }
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -19,45 +31,33 @@ export class CreateTestComponent implements OnInit {
 
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({
+      title: ['', Validators.required],
       numberOfQuestions: [''],
       numberOfTestQuestions: [''],
       questions: new FormArray([])
     })
 
-    const test = this.t;
-    console.log(test);
+    //Initiate first question
+    this.addQuestion();
   }
 
   addQuestion() {
-    this.t.push(this.formBuilder.group({
-      question: ['', Validators.required],
-      answer1: [''],
-      answer2: [''],
-      answer3: [''],
-      answer4: ['']
-    }))
+    this.t.push(this.formBuilder.group(this.question))
     this.f.numberOfQuestions.setValue(this.t.length);
   }
 
   onChangeQuestions(e) {
+    console.log(this.t.controls);
     const numberOfQuestions = e.target.value || 0;
     if(this.t.length < numberOfQuestions) {
       for(let i = this.t.length; i < numberOfQuestions; i++) {
-        this.t.push(this.formBuilder.group({
-          question: ['', Validators.required],
-          answer1: [''],
-          answer2: [''],
-          answer3: [''],
-          answer4: ['']
-        }))
+        this.t.push(this.formBuilder.group(this.question))
       }
     } else {
       for (let i = this.t.length; i >= numberOfQuestions; i--) {
         this.t.removeAt(i);
       }      
     }
-    console.log(this.t);
-    console.log(this.f);
   }
 
   onSubmit() {

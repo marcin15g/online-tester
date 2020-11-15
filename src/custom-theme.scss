@@ -3,8 +3,12 @@
 @include mat-core();
 
 $Tester-primary: mat-palette($mat-indigo);
-$Tester-accent: mat-palette($mat-pink, A200, A100, A400);
+$Tester-accent: mat-palette($mat-orange, A200, A100, A400);
 $Tester-warn: mat-palette($mat-red);
+
+.color-primary {
+  color: mat-color($Tester-primary);
+}
 
 $Tester-theme: mat-light-theme((
   color: (
@@ -12,6 +16,9 @@ $Tester-theme: mat-light-theme((
     accent: $Tester-accent,
     warn: $Tester-warn,
   )
+  
 ));
+
+
 
 @include angular-material-theme($Tester-theme);

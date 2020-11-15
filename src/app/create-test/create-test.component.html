@@ -1,21 +1,70 @@
-<mat-card>
+<mat-card id="main">
     <form [formGroup]='dynamicForm' (ngSubmit)='onSubmit()'>
-        <mat-form-field>
-            <mat-label>Number of questions</mat-label>
-            <input matInput formControlName="numberOfQuestions" (change)="onChangeQuestions($event)">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Test questions</mat-label>
-            <input matInput formControlName="numberOfTestQuestions">
-        </mat-form-field>
+        <div id="top-form">
+            <div id="title-form">
+                <mat-form-field>
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title">
+                </mat-form-field>
+            </div>
+            <div id="secondary-form">
+                <mat-form-field>
+                    <mat-label>Number of questions</mat-label>
+                    <input matInput formControlName="numberOfQuestions" (change)="onChangeQuestions($event)">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Test questions</mat-label>
+                    <input matInput formControlName="numberOfTestQuestions">
+                </mat-form-field>
+            </div>
+        </div>
         <div *ngFor="let question of t.controls; let i = index">
-            <mat-card>
-                <mat-card-title>Question {{i + 1}}</mat-card-title>
+            <mat-card id="question-card" [formGroup]='question'>
+                <mat-card-title>
+                    <span>Question {{i + 1}}</span>
+                    <span style='flex-grow: 1;'></span>
+                    <!-- <span style="font-size: 10px; opacity: 0.6; margin-right: 1em;">Mandatory:    </span> -->
+                    <mat-checkbox formControlName="isMandatory"></mat-checkbox>
+                </mat-card-title>
                 <mat-card-content>
-                    <mat-form-field>
-                        <mat-label>Title</mat-label>
-                        <input matInput formControlName="question">
-                    </mat-form-field>
+                    <div>
+                        <div id="q-name">
+                            <mat-form-field>
+                                <mat-label>Question</mat-label>
+                                <textarea matInput formControlName="question"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div id="q-answers"> 
+                            <div class="q-answer">
+                                <mat-checkbox formControlName="isCorrect1"></mat-checkbox>
+                                <mat-form-field>
+                                    <mat-label>Answer 1</mat-label>
+                                    <input matInput formControlName="answer1">
+                                </mat-form-field>
+                            </div>
+                            <div class="q-answer">
+                                <mat-checkbox formControlName="isCorrect2"></mat-checkbox>
+                                <mat-form-field>
+                                    <mat-label>Answer 2</mat-label>
+                                    <input matInput formControlName="answer2">
+                                </mat-form-field>
+                            </div>
+                            <div class="q-answer">
+                                <mat-checkbox formControlName="isCorrect3"></mat-checkbox>
+                                <mat-form-field>
+                                    <mat-label>Answer 3</mat-label>
+                                    <input matInput formControlName="answer3">
+                                </mat-form-field>
+                            </div>
+                            <div class="q-answer">
+                                <mat-checkbox formControlName="isCorrect4"></mat-checkbox>
+                                <mat-form-field>
+                                    <mat-label>Answer 4</mat-label>
+                                    <input matInput formControlName="answer4">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
                 </mat-card-content>
             </mat-card>
         </div>
