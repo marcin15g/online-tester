@@ -4,3 +4,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body {
     background-color: rgb(245, 245, 245);
 }
+.mat-accept {
+    background-color: green;
+    color: #fff;
+}

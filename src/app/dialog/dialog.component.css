@@ -1,0 +1,21 @@
+button {
+    flex-grow: 1;
+    margin: 0 1em;
+}
+mat-card {
+    width: 600px;
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+}
+mat-form-field {
+    font-size: 3em;
+    width: 100%;
+}
+#wrapper {
+    display: flex;
+    justify-content: center;
+}
+#btn-row {
+    display: flex;
+}

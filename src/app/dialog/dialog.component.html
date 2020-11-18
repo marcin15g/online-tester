@@ -1,0 +1,14 @@
+<div id="wrapper">
+    <mat-card>
+        <form [formGroup]="form">
+            <mat-form-field>
+                <mat-label>Test ID</mat-label>
+                <input matInput formControlName="testID">
+            </mat-form-field>
+        </form>
+        <div id="btn-row">
+            <button mat-raised-button color="accept" (click)="onEdit()">{{buttonTxt}}</button>
+            <button mat-raised-button color="accept" (click)="onEdit()">{{buttonTxt}}</button>
+        </div>
+    </mat-card>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-// import { finished } from 'stream';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router'
+import { EditService } from '../_services/edit.service';
 import { UploadService } from '../_services/upload.service';
 
 @Component({
@@ -10,9 +11,11 @@ import { UploadService } from '../_services/upload.service';
 })
 export class CreateTestComponent implements OnInit {
 
+  private mode: string = 'create';
   dynamicForm: FormGroup;
   submitted = false;
   visibleQuestions = 1;
+  testObj: object;
   question = {
     question: ['', Validators.required],
     isMandatory: [false],
@@ -26,12 +29,16 @@ export class CreateTestComponent implements OnInit {
     isCorrect4: [''],
   }
 
-  constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
-
-  get f() { return this.dynamicForm.controls; }
-  get t() { return this.f.questions as FormArray; }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private uploadService: UploadService,
+    public route: ActivatedRoute,
+    public editService: EditService
+  ) { }
 
   ngOnInit(): void {
+
+    //Declare reactive form
     this.dynamicForm = this.formBuilder.group({
       title: ['', Validators.required],
       numberOfQuestions: [''],
@@ -39,9 +46,23 @@ export class CreateTestComponent implements OnInit {
       questions: new FormArray([])
     })
 
-    //Initiate first question
-    this.addQuestion();
+    //Set create/modify mode
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+        if(paramMap.has('testID')) {
+          this.mode = 'modify';
+          this.testObj = JSON.parse(this.editService.getTest(paramMap.get("testID")));
+          this.populateForm(this.testObj);
+        } else {
+          this.mode = 'create';
+          this.addQuestion();
+        }
+        console.log(this.mode);
+    })
   }
+
+  
+  get f() { return this.dynamicForm.controls; }
+  get t() { return this.f.questions as FormArray; }
 
   addQuestion() {
     this.t.push(this.formBuilder.group(this.question))
@@ -49,8 +70,7 @@ export class CreateTestComponent implements OnInit {
   }
 
   onChangeQuestions(e) {
-    console.log(this.t.controls);
-    const numberOfQuestions = e.target.value || 0;
+    const numberOfQuestions = e || 0;
     if(this.t.length < numberOfQuestions) {
       for(let i = this.t.length; i < numberOfQuestions; i++) {
         this.t.push(this.formBuilder.group(this.question))
@@ -67,6 +87,7 @@ export class CreateTestComponent implements OnInit {
     if(this.dynamicForm.invalid) return;
 
     const test = this.parseForm(this.dynamicForm.value);
+    console.log(JSON.stringify(test));
     this.uploadService.uploadTest(test)
     .subscribe(
       res => {
@@ -111,4 +132,26 @@ export class CreateTestComponent implements OnInit {
     });
     return finishedForm;
   }
+
+  populateForm(test) {
+    console.log(test);
+    this.f.title.setValue(test.title);   
+    this.f.numberOfTestQuestions.setValue(test.num_of_questions);
+    this.f.numberOfQuestions.setValue(test.questions.length);
+    for(let i = 0; i < test.questions.length; i++) {
+      let q = test.questions[i];
+      this.t.push(this.formBuilder.group({
+        question: [q.question, Validators.required],
+        isMandatory: [q.required],
+        answer1: [q.answers[0].answer],
+        answer2: [q.answers[1].answer],
+        answer3: [q.answers[2].answer],
+        answer4: [q.answers[3].answer],
+        isCorrect1: [q.answers[0].correct],
+        isCorrect2: [q.answers[1].correct],
+        isCorrect3: [q.answers[2].correct],
+        isCorrect4: [q.answers[3].correct],       
+      }))
+    }
+  } 
 }

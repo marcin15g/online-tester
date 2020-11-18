@@ -10,7 +10,7 @@
             <div id="secondary-form">
                 <mat-form-field>
                     <mat-label>Number of questions</mat-label>
-                    <input matInput formControlName="numberOfQuestions" (change)="onChangeQuestions($event)">
+                    <input matInput formControlName="numberOfQuestions" (change)="onChangeQuestions($event.target.value)">
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Test questions</mat-label>
