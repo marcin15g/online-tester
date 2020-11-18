@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+// import { finished } from 'stream';
+import { UploadService } from '../_services/upload.service';
 
 @Component({
   selector: 'app-create-test',
@@ -24,7 +26,7 @@ export class CreateTestComponent implements OnInit {
     isCorrect4: [''],
   }
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
 
   get f() { return this.dynamicForm.controls; }
   get t() { return this.f.questions as FormArray; }
@@ -62,9 +64,18 @@ export class CreateTestComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     if(this.dynamicForm.invalid) return;
-    console.log('Submitted!', this.dynamicForm.value);
+
+    const test = this.parseForm(this.dynamicForm.value);
+    this.uploadService.uploadTest(test)
+    .subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 
   onReset() {
@@ -78,4 +89,26 @@ export class CreateTestComponent implements OnInit {
     this.t.reset();
   }
 
+  parseForm(form) {
+    let finishedForm = {
+      "title": form.title,
+      "user_id": 123,
+      "num_of_questions": form.numberOfTestQuestions,
+      "questions": []
+    };
+    form.questions.forEach((q) => {
+      let obj = {
+        "question": q.question,
+        "required": q.isMandatory,
+        "answers": [
+          {"answer": q.answer1, "correct": q.isCorrect1 ? true : false },
+          {"answer": q.answer2, "correct": q.isCorrect2 ? true : false },
+          {"answer": q.answer3, "correct": q.isCorrect3 ? true : false },
+          {"answer": q.answer4, "correct": q.isCorrect4 ? true : false }
+        ]
+      }
+      finishedForm.questions.push(obj);
+    });
+    return finishedForm;
+  }
 }

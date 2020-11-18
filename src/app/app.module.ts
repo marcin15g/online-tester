@@ -24,6 +24,7 @@ import { HeaderComponent } from './header/header.component';
 import { CreateTestComponent } from './create-test/create-test.component';
 import { SolveTestComponent } from './solve-test/solve-test.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
     
   ],
   providers: [],
