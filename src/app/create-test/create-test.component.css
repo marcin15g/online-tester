@@ -12,6 +12,9 @@ mat-card {
     flex-grow: 1;
     margin: 0 1em;
 }
+#title-form {
+    padding: 0 2em;
+}
 #title-form mat-form-field {
     width: 100%;
     font-size: 3em;
