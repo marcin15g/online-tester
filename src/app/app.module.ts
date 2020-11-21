@@ -12,7 +12,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -26,6 +26,7 @@ import { SolveTestComponent } from './solve-test/solve-test.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogComponent } from './dialog/dialog.component';
+import { Popup } from './create-test/create-test.component'
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DialogComponent } from './dialog/dialog.component';
     HeaderComponent,
     CreateTestComponent,
     SolveTestComponent,
-    DialogComponent
+    DialogComponent,
+    Popup
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,7 @@ import { DialogComponent } from './dialog/dialog.component';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatDialogModule,
     HttpClientModule
     
   ],

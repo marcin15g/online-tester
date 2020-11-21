@@ -1,0 +1,20 @@
+<div *ngIf="data.mode==='create'; else modified">
+    <h1 mat-dialog-title>Your test has been saved!</h1>
+    <div mat-dialog-content id="content">
+        <span id="test-id">{{data.testID}}</span>
+        <span id="desc">The code above allows anyone to participate in the test</span>
+    </div>
+</div>
+<ng-template #modified>
+    <h1 mat-dialog-title>Your test has been succesfully modified!</h1>
+    <div mat-dialog-content id="content">
+        <span id="test-id">{{data.testID}}</span>
+        <span id="desc">The code above allows anyone to participate in the test</span>
+    </div>
+</ng-template>
+
+
+<div mat-dialog-actions id="buttons">
+    <button mat-raised-button color='primary' (click)="onClick()">Thanks!</button>
+</div>
+
