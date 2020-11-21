@@ -25,7 +25,8 @@ export class DialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      testID: ['', Validators.required]
+      testID: ['', Validators.required],
+      password: ['admin', Validators.required]
     })
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -38,9 +39,20 @@ export class DialogComponent implements OnInit {
 
   onEdit() {
     if(this.form.invalid) return;
-    const testID = this.form.value.testID
+    const testID = this.form.value.testID;
+    const pwd = this.form.value.password;
+
+    //TODO FETCH TEST
     this.router.navigate(['create/' + testID]);
     console.log(this.form.value);
+  }
+
+  onDelete() {
+    if(this.form.invalid) return;
+    const testID = this.form.value.testID;
+    const pwd = this.form.value.password;
+
+    //TODO DELETE TEST
   }
 
 }

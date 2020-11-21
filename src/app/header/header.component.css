@@ -1,4 +1,9 @@
 #title {
     outline: 0 !important;
     cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
+}
+mat-toolbar {
+    height: 6rem;
 }

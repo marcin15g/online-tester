@@ -5,10 +5,14 @@
                 <mat-label>Test ID</mat-label>
                 <input matInput formControlName="testID">
             </mat-form-field>
+            <!-- <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field> -->
         </form>
         <div id="btn-row">
-            <button mat-raised-button color="accept" (click)="onEdit()">{{buttonTxt}}</button>
-            <button mat-raised-button color="accept" (click)="onEdit()">{{buttonTxt}}</button>
+            <button mat-raised-button color="accept" (click)="onEdit()">EDIT</button>
+            <button mat-raised-button color="warn" (click)="onDelete()">DELETE</button>
         </div>
     </mat-card>
 </div>
