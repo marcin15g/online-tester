@@ -45,8 +45,18 @@ export class DialogComponent implements OnInit {
     const pwd = this.form.value.password;
 
     //TODO FETCH TEST
-    this.router.navigate(['create/' + testID]);
-    console.log(this.form.value);
+    this.editService.getTest(testID)
+    .subscribe(
+      res => {
+        this.router.navigate(['create/' + testID]);
+      },
+      err => {
+        this._snackBar.open('Test ID is incorrect', 'DIsmiss', {
+          duration: 5000,
+          panelClass: ['red-snackbar']
+        });       
+      }
+    )
   }
 
   onDelete() {

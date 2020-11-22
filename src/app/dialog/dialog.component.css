@@ -25,3 +25,9 @@ mat-form-field {
 ::ng-deep .green-snackbar button {
     color: white;
 }
+::ng-deep .red-snackbar {
+    background-color: rgb(255, 56, 56)
+}
+::ng-deep .red-snackbar button {
+    color: white;
+}
