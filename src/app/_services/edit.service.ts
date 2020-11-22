@@ -16,7 +16,7 @@ export class EditService {
   }
 
   editTest(testID: string, test: object) {
-    return this.http.patch<any>(this.serverUrl + testID, test);
+    return this.http.patch<any>(this.serverUrl + testID, {test: test});
   }
 
   deleteTest(testID: string) {

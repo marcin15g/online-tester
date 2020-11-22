@@ -24,7 +24,9 @@
                     <span>Question {{i + 1}}</span>
                     <span style='flex-grow: 1;'></span>
                     <!-- <span style="font-size: 10px; opacity: 0.6; margin-right: 1em;">Mandatory:    </span> -->
-                    <mat-checkbox formControlName="isMandatory"></mat-checkbox>
+                    <span id='req'>Required: </span>
+                    <mat-checkbox formControlName="isMandatory" style='margin-right: 2em;'></mat-checkbox>
+                    <button mat-button color="warn" (click)='removeQuestion(i)'>Remove</button>
                 </mat-card-title>
                 <mat-card-content>
                     <div>

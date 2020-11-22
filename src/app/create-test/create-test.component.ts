@@ -23,7 +23,7 @@ export class CreateTestComponent implements OnInit {
   dynamicForm: FormGroup;
   submitted = false;
   visibleQuestions = 1;
-  testObj: object;
+  testObj;
   testID: string;
   idLoading: boolean = true;
   question = {
@@ -52,6 +52,7 @@ export class CreateTestComponent implements OnInit {
 
     //Declare reactive form
     this.dynamicForm = this.formBuilder.group({
+      id: [null],
       title: ['', Validators.required],
       numberOfQuestions: [''],
       numberOfTestQuestions: [''],
@@ -66,7 +67,6 @@ export class CreateTestComponent implements OnInit {
 
           this.editService.getTest(paramMap.get("testID")).subscribe(
             res => {
-              console.log(res);
               this.testObj = res.test;
               this.populateForm(this.testObj);
             },
@@ -76,7 +76,6 @@ export class CreateTestComponent implements OnInit {
           this.mode = 'create';
           this.addQuestion();
         }
-        console.log(this.mode);
     })
   }
 
@@ -85,7 +84,7 @@ export class CreateTestComponent implements OnInit {
   get t() { return this.f.questions as FormArray; }
 
   addQuestion() {
-    this.t.push(this.formBuilder.group(this.question))
+    this.t.push(this.formBuilder.group(this.question));
     this.f.numberOfQuestions.setValue(this.t.length);
   }
 
@@ -120,7 +119,7 @@ export class CreateTestComponent implements OnInit {
     this.submitted = true;
     if(this.dynamicForm.invalid) return;
     const test = this.parseForm(this.dynamicForm.value);
-
+    console.log(test);
     if(this.mode === 'create') {
       this.uploadService.uploadTest(test)
       .subscribe(
@@ -160,37 +159,46 @@ export class CreateTestComponent implements OnInit {
 
   parseForm(form) {
     let finishedForm = {
+      "testCode": this.testID ? this.testID : null,
+      "id": form.id ? form.id : null,
       "title": form.title,
-      "user_id": 123,
-      "num_of_questions": form.numberOfTestQuestions,
+      "userId": 123,
+      "numOfQuestions": parseInt(form.numberOfTestQuestions),
       "questions": []
     };
     form.questions.forEach((q) => {
       let obj = {
+        "id": q.id ? q.id : null,
         "question": q.question,
         "required": q.isMandatory,
         "answers": [
-          {"answer": q.answer1, "correct": q.isCorrect1 ? true : false },
-          {"answer": q.answer2, "correct": q.isCorrect2 ? true : false },
-          {"answer": q.answer3, "correct": q.isCorrect3 ? true : false },
-          {"answer": q.answer4, "correct": q.isCorrect4 ? true : false }
+          {"id": q.id1 ? q.id1 : null, "answer": q.answer1, "correct": q.isCorrect1 ? true : false },
+          {"id": q.id2 ? q.id2 : null, "answer": q.answer2, "correct": q.isCorrect2 ? true : false },
+          {"id": q.id3 ? q.id3 : null, "answer": q.answer3, "correct": q.isCorrect3 ? true : false },
+          {"id": q.id4 ? q.id4 : null, "answer": q.answer4, "correct": q.isCorrect4 ? true : false }
         ]
       }
       finishedForm.questions.push(obj);
     });
+    
     return finishedForm;
   }
 
   populateForm(test) {
-    console.log(test);
+    this.f.id.setValue(test.id);
     this.f.title.setValue(test.title);   
     this.f.numberOfTestQuestions.setValue(test.numOfQuestions);
     this.f.numberOfQuestions.setValue(test.questions.length);
     for(let i = 0; i < test.questions.length; i++) {
       let q = test.questions[i];
       this.t.push(this.formBuilder.group({
+        id: [q.id],
         question: [q.question, Validators.required],
         isMandatory: [q.required],
+        id1: [q.answers[0].id],
+        id2: [q.answers[1].id],
+        id3: [q.answers[2].id],
+        id4: [q.answers[3].id],
         answer1: [q.answers[0].answer],
         answer2: [q.answers[1].answer],
         answer3: [q.answers[2].answer],
@@ -202,6 +210,11 @@ export class CreateTestComponent implements OnInit {
       }))
     }
   } 
+
+  removeQuestion(index) {
+    this.t.removeAt(index);
+    this.f.numberOfQuestions.setValue(this.t.length);
+  }
 }
 
 @Component({
