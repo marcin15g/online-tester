@@ -125,10 +125,8 @@ export class CreateTestComponent implements OnInit {
       this.uploadService.uploadTest(test)
       .subscribe(
         res => { 
-          console.log(res);
           this.testID = res.testCode;
           this.openDialog();
-          console.log(res);
         },
         err => {
           console.log(err);
@@ -136,8 +134,16 @@ export class CreateTestComponent implements OnInit {
       )
     }
     else if(this.mode === 'modify') {
-      console.log('MODIFY!!');
-      this.openDialog();
+      this.editService.editTest(this.testID, test)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.openDialog();
+        },
+        err => {
+          console.log(err);
+        }
+      );
     }
   }
 
