@@ -20,4 +20,8 @@ export class EditService {
   editTest(testID: string, test: object) {
     return true;
   }
+
+  deleteTest(testID: string) {
+    return this.http.delete<any>(this.serverUrl + '/test/' + testID);
+  }
 }

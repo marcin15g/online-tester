@@ -3,6 +3,7 @@ import { NgModuleFactory } from '@angular/core/src/r3_symbols';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { EditService } from '../_services/edit.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class DialogComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, 
+    private _snackBar: MatSnackBar,
     public route: ActivatedRoute, 
     public router: Router,
     public editService: EditService
@@ -52,7 +54,20 @@ export class DialogComponent implements OnInit {
     const testID = this.form.value.testID;
     const pwd = this.form.value.password;
 
-    //TODO DELETE TEST
+    this.editService.deleteTest(testID)
+    .subscribe(
+      res => {
+        console.log('DELETED');
+        this._snackBar.open('Test succesfully deleted', 'DIsmiss', {
+          duration: 5000,
+          panelClass: ['green-snackbar']
+        });
+        this.router.navigate(['/']);
+      },
+      err => {
+        console.log(err)
+      }
+    )
   }
 
 }
