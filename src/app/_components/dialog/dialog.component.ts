@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgModuleFactory } from '@angular/core/src/r3_symbols';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { EditService } from '../_services/edit.service';
+import { EditService } from '../../_services/edit.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 
@@ -14,7 +14,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class DialogComponent implements OnInit {
 
   private mode: string = "modify";
-  buttonTxt: string = "";
   form: FormGroup;
 
   constructor(
@@ -29,14 +28,7 @@ export class DialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       testID: ['', Validators.required],
       password: ['admin', Validators.required]
-    })
-
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      this.mode = paramMap.get('type');
-      if(this.mode === 'modify') {
-        this.buttonTxt = "EDIT";
-      }
-    })
+    });
   }
 
   onEdit() {
@@ -44,14 +36,13 @@ export class DialogComponent implements OnInit {
     const testID = this.form.value.testID;
     const pwd = this.form.value.password;
 
-    //TODO FETCH TEST
     this.editService.getTest(testID)
     .subscribe(
       res => {
         this.router.navigate(['create/' + testID]);
       },
       err => {
-        this._snackBar.open('Test ID is incorrect', 'DIsmiss', {
+        this._snackBar.open('Test ID is incorrect', 'Dismiss', {
           duration: 5000,
           panelClass: ['red-snackbar']
         });       
@@ -67,7 +58,6 @@ export class DialogComponent implements OnInit {
     this.editService.deleteTest(testID)
     .subscribe(
       res => {
-        console.log('DELETED');
         this._snackBar.open('Test succesfully deleted', 'DIsmiss', {
           duration: 5000,
           panelClass: ['green-snackbar']

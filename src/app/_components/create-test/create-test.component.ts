@@ -2,15 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
-import { EditService } from '../_services/edit.service';
-import { UploadService } from '../_services/upload.service';
-import { ThrowStmt } from '@angular/compiler';
-
-export interface DialogData {
-  testID: string
-  idLoading: boolean
-  mode: string
-}
+import { EditService } from '../../_services/edit.service';
+import { UploadService } from '../../_services/upload.service';
+import { Popup } from './popup/popup';
 
 @Component({
   selector: 'app-create-test',
@@ -21,11 +15,9 @@ export class CreateTestComponent implements OnInit {
 
   private mode: string = 'create';
   dynamicForm: FormGroup;
-  submitted = false;
-  visibleQuestions = 1;
+  visibleQuestions: number = 1;
   testObj;
   testID: string;
-  idLoading: boolean = true;
   question = {
     question: ['', Validators.required],
     isMandatory: [false],
@@ -41,10 +33,10 @@ export class CreateTestComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, 
-    private uploadService: UploadService,
+    public uploadService: UploadService,
+    public editService: EditService,
     public route: ActivatedRoute,
     public router: Router,
-    public editService: EditService,
     public dialog: MatDialog
   ) { }
 
@@ -64,8 +56,8 @@ export class CreateTestComponent implements OnInit {
         if(paramMap.has('testID')) {
           this.mode = 'modify';
           this.testID = paramMap.get("testID");
-
-          this.editService.getTest(paramMap.get("testID")).subscribe(
+          this.editService.getTest(this.testID)
+          .subscribe(
             res => {
               this.testObj = res.test;
               this.populateForm(this.testObj);
@@ -79,31 +71,32 @@ export class CreateTestComponent implements OnInit {
     })
   }
 
-  
   get f() { return this.dynamicForm.controls; }
   get t() { return this.f.questions as FormArray; }
 
-  addQuestion() {
+  addQuestion(): void {
     this.t.push(this.formBuilder.group(this.question));
     this.f.numberOfQuestions.setValue(this.t.length);
   }
 
+  removeQuestion(index): void {
+    this.t.removeAt(index);
+    this.f.numberOfQuestions.setValue(this.t.length);
+  }
+
   openDialog(): void {
-    const dialogRef = this.dialog.open(
-      Popup,
+    const dialogRef = this.dialog.open(Popup,
       {
         width: '500px',
-        data: {testID: this.testID, idLoading: this.idLoading, mode: this.mode}
-      }
-    )
-
+        data: {testID: this.testID, mode: this.mode}
+      });
     dialogRef.afterClosed().subscribe(res => {
       this.router.navigate(['/']);
     })
   }
 
-  onChangeQuestions(e) {
-    const numberOfQuestions = e || 0;
+  onChangeQuestions(inputNuner): void {
+    const numberOfQuestions = inputNuner || 0;
     if(this.t.length < numberOfQuestions) {
       for(let i = this.t.length; i < numberOfQuestions; i++) {
         this.t.push(this.formBuilder.group(this.question))
@@ -116,10 +109,9 @@ export class CreateTestComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
     if(this.dynamicForm.invalid) return;
     const test = this.parseForm(this.dynamicForm.value);
-    console.log(test);
+
     if(this.mode === 'create') {
       this.uploadService.uploadTest(test)
       .subscribe(
@@ -147,15 +139,14 @@ export class CreateTestComponent implements OnInit {
   }
 
   onReset() {
-    this.submitted = false;
     this.dynamicForm.reset();
     this.t.clear();
   }
 
   onClear() {
-    this.submitted = false;
     this.t.reset();
   }
+
 
   parseForm(form) {
     let finishedForm = {
@@ -210,30 +201,5 @@ export class CreateTestComponent implements OnInit {
       }))
     }
   } 
-
-  removeQuestion(index) {
-    this.t.removeAt(index);
-    this.f.numberOfQuestions.setValue(this.t.length);
-  }
 }
 
-@Component({
-  selector: 'app-popup',
-  templateUrl: 'popup.html',
-  styleUrls: ['popup.css']
-})
-export class Popup {
-  constructor(
-    public dialogRef: MatDialogRef<Popup>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
-
-  checkData() {
-    console.log(this.data)
-  }
-  onClick() {
-    console.log('CLICK');
-    this.dialogRef.close();
-  }
-
-}
