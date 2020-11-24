@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogComponent } from './_components/dialog/dialog.component';
 import { Popup } from './_components/create-test/popup/popup';
+import { QuestionComponent } from './_components/create-test/question/question.component';
 
 const materialImports = [
     MatToolbarModule,
@@ -46,7 +47,8 @@ const materialImports = [
     CreateTestComponent,
     SolveTestComponent,
     DialogComponent,
-    Popup
+    Popup,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,31 @@
+#question-card {
+    margin: 2em 5em;
+}
+#question-card mat-card-title {
+    display: flex;
+    justify-content: space-between;
+}
+#q-name mat-form-field {
+    width: 100%;
+}
+.q-answer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.q-answer mat-form-field {
+    flex-grow: 1;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+span#req {
+    font-size: 15px;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    margin-right: 1em;
+}
+#btn-row {
+    display: flex;
+    justify-content: flex-end;
+}

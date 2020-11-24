@@ -1,0 +1,32 @@
+<mat-card id="question-card" [formGroup]='question'>
+    <mat-card-title>
+        <span>Question {{index + 1}}</span>
+        <span style='flex-grow: 1;'></span>
+        <span id='req'>Required: </span>
+        <mat-checkbox formControlName="required" style='margin-right: 2em;'></mat-checkbox>
+        <button mat-button color="warn" (click)="removeQuestion(index)">Remove</button>
+    </mat-card-title>
+    <mat-card-content>
+        <div>
+            <div id="q-name">
+                <mat-form-field>
+                    <mat-label>Question</mat-label>
+                    <textarea matInput formControlName="question"></textarea>
+                </mat-form-field>
+            </div>
+            <div id="q-answers"> 
+                <div class="q-answer" *ngFor='let singleAnswer of answers.controls; let i = index;' [formGroup]="singleAnswer">
+                    <mat-checkbox formControlName="correct"></mat-checkbox>
+                    <mat-form-field>
+                        <mat-label>Answer {{i + 1}}</mat-label>
+                        <input matInput formControlName="answer">
+                    </mat-form-field>                    
+                    <button mat-raised-button color="warn" (click)="removeAnswer(i)">-</button>
+                </div>
+            </div>
+            <div id="btn-row">
+                <button mat-raised-button color="primary" (click)="addAnswer()">+</button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card> 

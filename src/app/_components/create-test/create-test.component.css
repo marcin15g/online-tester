@@ -23,33 +23,3 @@ mat-card {
     display: flex;
     justify-content: space-evenly;
 }
-#question-card {
-    margin: 2em 5em;
-}
-#question-card mat-card-title {
-    display: flex;
-    justify-content: space-between;
-}
-#q-name mat-form-field {
-    width: 100%;
-}
-#q-answers {
-    padding: 0 2em;
-}
-.q-answer {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-.q-answer mat-form-field {
-    flex-grow: 1;
-    margin-left: 2em;
-}
-span#req {
-    font-size: 15px;
-    opacity: 0.8;
-    display: flex;
-    align-items: center;
-    margin-right: 1em;
-}
-
