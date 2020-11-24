@@ -23,3 +23,11 @@ mat-card {
     display: flex;
     justify-content: space-evenly;
 }
+div#randomize {
+    display: flex;
+    align-items: center;
+}
+div#randomize mat-checkbox {
+    margin-left: 1em;
+    margin-bottom: 3px;
+}

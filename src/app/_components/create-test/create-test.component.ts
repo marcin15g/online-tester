@@ -34,10 +34,10 @@ export class CreateTestComponent implements OnInit {
     this.dynamicForm = this.formBuilder.group({
       id: [null],
       title: ['', Validators.required],
-      userID: [123],
       numberOfQuestions: [null],
       numberOfTestQuestions: [null],
-      questions: new FormArray([])
+      questions: new FormArray([]),
+      randomize: [true]
     })
 
     //Set create/modify mode
@@ -109,10 +109,8 @@ export class CreateTestComponent implements OnInit {
 
   onSubmit() {
     if(this.dynamicForm.invalid) return;
-    console.log(this.dynamicForm.value);
-    // const test = this.parseForm(this.dynamicForm.value);
     const test = this.dynamicForm.value;
-
+    console.log(test);
     if(this.mode === 'create') {
       this.uploadService.uploadTest(test)
       .subscribe(
@@ -148,39 +146,12 @@ export class CreateTestComponent implements OnInit {
     this.t.reset();
   }
 
-
-  // parseForm(form) {
-  //   let finishedForm = {
-  //     "testCode": this.testID ? this.testID : null,
-  //     "id": form.id ? form.id : null,
-  //     "title": form.title,
-  //     "userId": 123,
-  //     "numOfQuestions": parseInt(form.numberOfTestQuestions),
-  //     "questions": []
-  //   };
-  //   form.questions.forEach((q) => {
-  //     let obj = {
-  //       "id": q.id ? q.id : null,
-  //       "question": q.question,
-  //       "required": q.required,
-  //       "answers": [
-  //         {"id": q.id1 ? q.id1 : null, "answer": q.answer1, "correct": q.isCorrect1 ? true : false },
-  //         {"id": q.id2 ? q.id2 : null, "answer": q.answer2, "correct": q.isCorrect2 ? true : false },
-  //         {"id": q.id3 ? q.id3 : null, "answer": q.answer3, "correct": q.isCorrect3 ? true : false },
-  //         {"id": q.id4 ? q.id4 : null, "answer": q.answer4, "correct": q.isCorrect4 ? true : false }
-  //       ]
-  //     }
-  //     finishedForm.questions.push(obj);
-  //   });    
-  //   return finishedForm;
-  // }
-
   populateForm(test) {
     console.log(test);
 
     this.f.id.setValue(test.id);
     this.f.title.setValue(test.title);   
-    this.f.numberOfTestQuestions.setValue(test.numOfQuestions);
+    this.f.numberOfTestQuestions.setValue(test.numOfTestQuestions);
     this.f.numberOfQuestions.setValue(test.questions.length);
 
     for(let i = 0; i < test.questions.length; i++) {
