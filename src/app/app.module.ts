@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EditDialogComponent } from './_components/edit-test/edit-dialog/edit-dialog.component';
 import { Popup } from './_components/create-test/popup/popup';
 import { QuestionComponent } from './_components/create-test/question/question.component';
+import { SolveDialogComponent } from './_components/solve-test/solve-dialog/solve-dialog.component';
 
 const materialImports = [
     MatToolbarModule,
@@ -48,7 +49,8 @@ const materialImports = [
     SolveTestComponent,
     EditDialogComponent,
     Popup,
-    QuestionComponent
+    QuestionComponent,
+    SolveDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,25 @@
+<div id="wrapper">
+    <mat-card>
+        <form [formGroup]="form">
+            <div id="credentials">
+                <mat-form-field>
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="fName">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="lName">
+                </mat-form-field>
+            </div>
+            <div id="code">
+                <mat-form-field>
+                    <mat-label>Test Code</mat-label>
+                    <input matInput formControlName="testCode">
+                </mat-form-field>
+            </div>
+        </form>
+        <div id="btn-row">
+            <button mat-raised-button color="accept" (click)="onStart()">START TEST</button>
+        </div>
+    </mat-card>
+</div>

@@ -1,0 +1,31 @@
+button {
+    margin: 0 1em;
+    height: 4em;
+    width: 100%;
+}
+mat-card {
+    width: 600px;
+    margin-top: 3em;
+    padding: 2em 3em;
+    display: flex;
+    flex-direction: column;
+}
+div#wrapper {
+    display: flex;
+    justify-content: center;
+}
+div#credentials {
+    display: flex;
+    justify-content: space-evenly;
+}
+div#code {
+    display: flex;
+    justify-content: center;
+}
+div#btn-row {
+    display: flex;
+}
+div#code mat-form-field {
+    font-size: 2em;
+    width: 80%;
+}
