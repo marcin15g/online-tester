@@ -108,7 +108,6 @@ export class CreateTestComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("SUBMITTTT");
     if(this.dynamicForm.invalid) return;
     const test = this.dynamicForm.value;
 

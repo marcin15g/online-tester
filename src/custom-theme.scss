@@ -1,10 +1,18 @@
 @import '~@angular/material/theming';
+@import '../src//themes/custom-pallete.scss';
 
 @include mat-core();
 
-$Tester-primary: mat-palette($mat-indigo);
-$Tester-accent: mat-palette($mat-orange, A200, A100, A400);
-$Tester-warn: mat-palette($mat-red);
+// $Tester-primary: mat-palette($mat-indigo);
+// $Tester-accent: mat-palette($mat-orange, A200, A100, A400);
+// $Tester-warn: mat-palette($mat-red);
+
+
+$Tester-primary: mat-palette($md-customprimary);
+$Tester-accent: mat-palette($md-customaccent);
+$Tester-warn: mat-palette($md-customwarn);
+
+
 
 .color-primary {
   color: mat-color($Tester-primary);
