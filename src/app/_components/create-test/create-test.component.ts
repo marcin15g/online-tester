@@ -35,8 +35,8 @@ export class CreateTestComponent implements OnInit {
     this.dynamicForm = this.formBuilder.group({
       id: [null],
       title: ['', Validators.required],
-      numberOfQuestions: [null],
-      numberOfTestQuestions: [null],
+      numOfQuestions: [1],
+      numOfTestQuestions: [null],
       questions: new FormArray([]),
       randomize: [true]
     })
@@ -71,12 +71,12 @@ export class CreateTestComponent implements OnInit {
       required: [false],
       answers: new FormArray([])
     }));
-    this.f.numberOfQuestions.setValue(this.t.length);
+    this.f.numOfQuestions.setValue(this.t.length);
   }
 
   removeQuestion(index): void {
     this.t.removeAt(index);
-    this.f.numberOfQuestions.setValue(this.t.length);
+    this.f.numOfQuestions.setValue(this.t.length);
   }
 
   openDialog(): void {
@@ -112,32 +112,35 @@ export class CreateTestComponent implements OnInit {
     if(this.dynamicForm.invalid) return;
     const test = this.dynamicForm.value;
 
-    if(this.mode === 'create') {
-      this.formTest = test;
-      this.openDialog();
-      // this.uploadService.uploadTest(test)
-      // .subscribe(
-      //   res => { 
-      //     this.testID = res.testCode;
-      //     this.openDialog();
-      //   },
-      //   err => {
-      //     console.log(err);
-      //   }
-      // )
-    }
-    else if(this.mode === 'modify') {
-      this.editService.editTest(this.testID, test)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.openDialog();
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    }
+    this.formTest = test;
+    this.openDialog();
+
+    // if(this.mode === 'create') {
+    //   this.formTest = test;
+    //   this.openDialog();
+    //   this.uploadService.uploadTest(test)
+    //   .subscribe(
+    //     res => { 
+    //       this.testID = res.testCode;
+    //       this.openDialog();
+    //     },
+    //     err => {
+    //       console.log(err);
+    //     }
+    //   )
+    // }
+    // else if(this.mode === 'modify') {
+    //   this.editService.editTest(this.testID, test)
+    //   .subscribe(
+    //     res => {
+    //       console.log(res);
+    //       this.openDialog();
+    //     },
+    //     err => {
+    //       console.log(err);
+    //     }
+    //   );
+    // }
   }
 
   onReset() {
@@ -153,8 +156,8 @@ export class CreateTestComponent implements OnInit {
 
     this.f.id.setValue(test.id);
     this.f.title.setValue(test.title);   
-    this.f.numberOfTestQuestions.setValue(test.numOfTestQuestions);
-    this.f.numberOfQuestions.setValue(test.questions.length);
+    this.f.numOfTestQuestions.setValue(test.numOfTestQuestions);
+    this.f.numOfQuestions.setValue(test.questions.length);
 
     for(let i = 0; i < test.questions.length; i++) {
       let q = test.questions[i];

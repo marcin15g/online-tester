@@ -1,5 +1,5 @@
 <div *ngIf="data.mode==='create'; else modified">
-    <div *ngIf="!testID">
+    <div *ngIf="!testID" id="add-password">
         <h1 mat-dialog-title>Almost there!</h1>
         <div mat-dialog-content id="content">
             <span id="test-id">{{data.testID}}</span>
@@ -27,13 +27,39 @@
     </div>
 </div>
 <ng-template #modified>
-    <h1 mat-dialog-title>Your test has been succesfully modified!</h1>
+    <div *ngIf="!testID" id="add-password">
+        <h1 mat-dialog-title>Almost there!</h1>
+        <div mat-dialog-content id="content">
+            <span id="test-id">{{data.testID}}</span>
+            <form [formGroup]="form">
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password">
+                </mat-form-field>
+            </form>
+            <span id="desc">Please confirm Your changes by typing the password</span>
+        </div>
+        <div mat-dialog-actions id="buttons">
+            <button mat-raised-button color='primary' (click)="onSubmit()">Submit</button>
+        </div>
+    </div>
+    <div *ngIf="testID">
+        <h1 mat-dialog-title>Your test has been modified!</h1>
+        <div mat-dialog-content id="content">
+            <span id="test-id">{{testID}}</span>
+            <span id="desc">The code above allows anyone to participate in the test</span>
+        </div>
+        <div mat-dialog-actions id="buttons">
+            <button mat-raised-button color='primary' (click)="onClose()">Thanks!</button>
+        </div>
+    </div>
+    <!-- <h1 mat-dialog-title>Your test has been succesfully modified!</h1>
     <div mat-dialog-content id="content">
         <span id="test-id">{{data.testID}}</span>
         <span id="desc">The code above allows anyone to participate in the test</span>
     </div>
     <div mat-dialog-actions id="buttons">
         <button mat-raised-button color='primary' (click)="onClose()">Thanks!</button>
-    </div>
+    </div> -->
 </ng-template>
 

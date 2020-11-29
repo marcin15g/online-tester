@@ -5,6 +5,7 @@ div#buttons {
     display: flex;
     justify-content: flex-end;
 }
+
 div#content  {
     display: flex;
     flex-direction: column;
@@ -14,6 +15,10 @@ span#test-id {
     font-weight: bold;
     font-size: 2rem;
     margin: 10px 0;
+}
+div#add-password span#desc {
+    width: 70%;
+    align-self: center;
 }
 div#content span {
     text-align: center;
