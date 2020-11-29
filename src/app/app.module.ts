@@ -22,7 +22,7 @@ import { CreateTestComponent } from './_components/create-test/create-test.compo
 import { SolveTestComponent } from './_components/solve-test/solve-test.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { DialogComponent } from './_components/dialog/dialog.component';
+import { EditDialogComponent } from './_components/edit-test/edit-dialog/edit-dialog.component';
 import { Popup } from './_components/create-test/popup/popup';
 import { QuestionComponent } from './_components/create-test/question/question.component';
 
@@ -46,7 +46,7 @@ const materialImports = [
     HeaderComponent,
     CreateTestComponent,
     SolveTestComponent,
-    DialogComponent,
+    EditDialogComponent,
     Popup,
     QuestionComponent
   ],

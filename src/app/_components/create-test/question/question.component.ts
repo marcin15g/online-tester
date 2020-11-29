@@ -29,6 +29,7 @@ export class QuestionComponent implements OnInit {
   }
 
   addAnswer(): void {
+    debugger;
     this.answers.push(this.formBuilder.group({
       id: [null],
       answer: [""],

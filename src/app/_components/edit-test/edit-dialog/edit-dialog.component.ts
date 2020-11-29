@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { NgModuleFactory } from '@angular/core/src/r3_symbols';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { EditService } from '../../_services/edit.service';
+import { EditService } from '../../../_services/edit.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css']
+  selector: 'app-edit-dialog',
+  templateUrl: './edit-dialog.component.html',
+  styleUrls: ['./edit-dialog.component.css']
 })
-export class DialogComponent implements OnInit {
+export class EditDialogComponent implements OnInit {
 
   private mode: string = "modify";
   form: FormGroup;

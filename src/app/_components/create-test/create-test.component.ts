@@ -108,9 +108,10 @@ export class CreateTestComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("SUBMITTTT");
     if(this.dynamicForm.invalid) return;
     const test = this.dynamicForm.value;
-    console.log(test);
+
     if(this.mode === 'create') {
       this.uploadService.uploadTest(test)
       .subscribe(
@@ -147,7 +148,6 @@ export class CreateTestComponent implements OnInit {
   }
 
   populateForm(test) {
-    console.log(test);
 
     this.f.id.setValue(test.id);
     this.f.title.setValue(test.title);   
