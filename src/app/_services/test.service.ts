@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,10 +6,11 @@ import { Injectable } from '@angular/core';
 })
 export class TestService {
 
-  constructor() { }
+  private serverUrl: string = 'https://online-tests2137.herokuapp.com/test';
+
+  constructor(private http: HttpClient) { }
 
   checkIfTestExists(testID: number) {
-    //TODO
-    return true;
+    return this.http.get<any>(`${this.serverUrl}/check/${testID}`);
   }
 }

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { EditService } from '../../../_services/edit.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { TestService } from '../../../_services/test.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class EditDialogComponent implements OnInit {
     private _snackBar: MatSnackBar,
     public route: ActivatedRoute, 
     public router: Router,
-    public editService: EditService
+    public editService: EditService,
+    public testService: TestService
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +38,7 @@ export class EditDialogComponent implements OnInit {
     const testID = this.form.value.testID;
     const pwd = this.form.value.password;
 
-    this.editService.getTest(testID)
+    this.testService.checkIfTestExists(testID)
     .subscribe(
       res => {
         this.router.navigate(['create/' + testID]);

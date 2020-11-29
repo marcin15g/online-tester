@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'create', component: CreateTestComponent},
   { path: 'create/:testID', component: CreateTestComponent},
   { path: 'solve', component: SolveDialogComponent},
+  { path: 'solve/:testID', component: SolveTestComponent},
   { path: 'dialog/:type', component: EditDialogComponent}
 ];
 
