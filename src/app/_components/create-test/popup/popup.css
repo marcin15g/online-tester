@@ -18,3 +18,7 @@ span#test-id {
 div#content span {
     text-align: center;
 }
+mat-form-field {
+    font-size: 2em;
+    width: 100%;
+}

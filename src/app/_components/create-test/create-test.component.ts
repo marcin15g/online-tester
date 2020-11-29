@@ -17,6 +17,7 @@ export class CreateTestComponent implements OnInit {
   dynamicForm: FormGroup;
   visibleQuestions: number = 1;
   testObj;
+  formTest;
   testID: string;
 
   constructor(
@@ -82,7 +83,7 @@ export class CreateTestComponent implements OnInit {
     const dialogRef = this.dialog.open(Popup,
       {
         width: '500px',
-        data: {testID: this.testID, mode: this.mode}
+        data: {testID: this.testID, mode: this.mode, test: this.formTest }
       });
     dialogRef.afterClosed().subscribe(res => {
       this.router.navigate(['/']);
@@ -112,16 +113,18 @@ export class CreateTestComponent implements OnInit {
     const test = this.dynamicForm.value;
 
     if(this.mode === 'create') {
-      this.uploadService.uploadTest(test)
-      .subscribe(
-        res => { 
-          this.testID = res.testCode;
-          this.openDialog();
-        },
-        err => {
-          console.log(err);
-        }
-      )
+      this.formTest = test;
+      this.openDialog();
+      // this.uploadService.uploadTest(test)
+      // .subscribe(
+      //   res => { 
+      //     this.testID = res.testCode;
+      //     this.openDialog();
+      //   },
+      //   err => {
+      //     console.log(err);
+      //   }
+      // )
     }
     else if(this.mode === 'modify') {
       this.editService.editTest(this.testID, test)

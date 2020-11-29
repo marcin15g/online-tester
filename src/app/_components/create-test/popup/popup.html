@@ -1,8 +1,29 @@
 <div *ngIf="data.mode==='create'; else modified">
-    <h1 mat-dialog-title>Your test has been saved!</h1>
-    <div mat-dialog-content id="content">
-        <span id="test-id">{{data.testID}}</span>
-        <span id="desc">The code above allows anyone to participate in the test</span>
+    <div *ngIf="!testID">
+        <h1 mat-dialog-title>Almost there!</h1>
+        <div mat-dialog-content id="content">
+            <span id="test-id">{{data.testID}}</span>
+            <form [formGroup]="form">
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password">
+                </mat-form-field>
+            </form>
+            <span id="desc">In order to edit Your test in the future, please provide a secure password</span>
+        </div>
+        <div mat-dialog-actions id="buttons">
+            <button mat-raised-button color='primary' (click)="onSubmit()">Submit</button>
+        </div>
+    </div>
+    <div *ngIf="testID">
+        <h1 mat-dialog-title>Your test has been saved!</h1>
+        <div mat-dialog-content id="content">
+            <span id="test-id">{{testID}}</span>
+            <span id="desc">The code above allows anyone to participate in the test</span>
+        </div>
+        <div mat-dialog-actions id="buttons">
+            <button mat-raised-button color='primary' (click)="onClose()">Thanks!</button>
+        </div>
     </div>
 </div>
 <ng-template #modified>
@@ -11,9 +32,8 @@
         <span id="test-id">{{data.testID}}</span>
         <span id="desc">The code above allows anyone to participate in the test</span>
     </div>
+    <div mat-dialog-actions id="buttons">
+        <button mat-raised-button color='primary' (click)="onClose()">Thanks!</button>
+    </div>
 </ng-template>
-
-<div mat-dialog-actions id="buttons">
-    <button mat-raised-button color='primary' (click)="onClick()">Thanks!</button>
-</div>
 

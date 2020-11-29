@@ -44,7 +44,7 @@ export class EditDialogComponent implements OnInit {
         this.router.navigate(['create/' + testID]);
       },
       err => {
-        this._snackBar.open('Test ID is incorrect', 'Dismiss', {
+        this._snackBar.open('Test Code is incorrect', 'Dismiss', {
           duration: 5000,
           panelClass: ['red-snackbar']
         });       
