@@ -3,10 +3,13 @@ button {
     height: 4em;
     width: 100%;
 }
+div#btn-row {
+    display: flex;
+    width: 100%;
+}
 mat-card {
     width: 600px;
     margin-top: 3em;
-    padding: 2em 3em;
     display: flex;
     flex-direction: column;
 }
@@ -14,18 +17,53 @@ div#wrapper {
     display: flex;
     justify-content: center;
 }
+form {
+    display: flex;
+}
+div#left {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    border-right: 1px solid rgb(180, 180, 180);
+}
+div#right {
+    padding: 2em;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+div#code {
+    width: 100%;
+}
+div#code mat-form-field {
+    font-size: 2em;
+    width: 100%;
+}
+
+
+/* div#email {
+    width: 100%;
+    justify-content: center;
+}
 div#credentials {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 div#code {
     display: flex;
     justify-content: center;
 }
-div#btn-row {
-    display: flex;
-}
 div#code mat-form-field {
     font-size: 2em;
-    width: 80%;
+    width: 50%;
 }
+div#email mat-form-field {
+    width: 100%;
+}
+div#credentials mat-form-field {
+    width: 40%;
+} */

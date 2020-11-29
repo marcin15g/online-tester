@@ -20,8 +20,9 @@ export class SolveDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      fName: ['', Validators.required],
-      lName: ['', Validators.required],
+      email: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       testCode: ['', Validators.required]
     })
   }
@@ -30,7 +31,15 @@ export class SolveDialogComponent implements OnInit {
     if(this.form.invalid) return true;
 
     const fData = this.form.value;
-    //TODO === Add service check if the test exists
+    this.testService.checkIfTestExists(fData.testCode)
+    .subscribe(
+      res => {
+        this.router.navigate([`/solve/${fData.testCode}`]);
+      },
+      err => {
+        this.form.reset();
+      }
+    )
   }
 
 }
