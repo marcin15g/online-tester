@@ -1,0 +1,12 @@
+@import "../../../custom-theme.scss";
+
+.bg-accent {
+    background-color: mat-color($Tester-accent);
+}
+.bg-primary {
+    background-color: mat-color($Tester-primary);
+    color: mat-color($Tester-accent, 100);
+}
+.color-primary {
+color: mat-color($Tester-primary);
+}

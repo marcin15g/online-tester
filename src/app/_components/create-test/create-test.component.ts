@@ -111,7 +111,6 @@ export class CreateTestComponent implements OnInit {
   onSubmit() {
     if(this.dynamicForm.invalid) return;
     this.formTest = this.dynamicForm.value;
-
     this.openDialog();
   }
 

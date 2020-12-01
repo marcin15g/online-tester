@@ -5,11 +5,11 @@ import { SolveService } from '../../_services/solve.service';
 @Component({
   selector: 'app-solve-test',
   templateUrl: './solve-test.component.html',
-  styleUrls: ['./solve-test.component.css']
+  styleUrls: ['./solve-test.component.css', './solve-test.component.scss']
 })
 export class SolveTestComponent implements OnInit {
 
-  test: object;
+  test;
   testForm: FormGroup
 
   constructor(
@@ -19,6 +19,7 @@ export class SolveTestComponent implements OnInit {
 
   ngOnInit(): void {
     this.test = this.solveService.getTest();
+    console.log(document.cookie);
 
     this.testForm = this.formBuilder.group({
       id: [null],

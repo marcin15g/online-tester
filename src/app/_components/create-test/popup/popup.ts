@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { EditService } from '../../../_services/edit.service';
 import { UploadService } from '../../../_services/upload.service';
 
 export interface DialogData {
@@ -24,10 +25,12 @@ export interface DialogData {
       public dialogRef: MatDialogRef<Popup>,
       private formBuilder: FormBuilder,
       private uploadService: UploadService,
+      private editService: EditService,
       @Inject(MAT_DIALOG_DATA) public data: DialogData
     ) {}
 
     ngOnInit() {
+      console.log(this.data.mode);
       this.form = this.formBuilder.group({
         password: ['', Validators.required]
       })
@@ -40,15 +43,26 @@ export interface DialogData {
       const test = this.data.test;
       test['password'] = this.form.value.password;
 
-      console.log(test);
-      this.uploadService.uploadTest(test)
-      .subscribe(
-        res => { 
-          this.testID = res.testCode;
-        },
-        err => {
-          console.log(err);
-        }
-      )
+      if(this.data.mode === 'create') {
+        this.uploadService.uploadTest(test)
+        .subscribe(
+          res => { 
+            this.testID = res.testCode;
+          },
+          err => {
+            console.log(err);
+          }
+        )
+      } else if(this.data.mode === 'modify') {
+        this.editService.editTest(this.data.testID, test)
+        .subscribe(
+          res => { 
+            this.testID = this.data.testID;
+          },
+          err => {
+            console.log(err);
+          }
+        )
+      }
     }
   }

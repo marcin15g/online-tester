@@ -12,7 +12,12 @@ $Tester-primary: mat-palette($md-customprimary);
 $Tester-accent: mat-palette($md-customaccent);
 $Tester-warn: mat-palette($md-customwarn);
 
-
+.bg-accent {
+  background-color: mat-color($Tester-accent);
+}
+.bg-primary {
+  background-color: mat-color($Tester-primary);
+}
 
 .color-primary {
   color: mat-color($Tester-primary);

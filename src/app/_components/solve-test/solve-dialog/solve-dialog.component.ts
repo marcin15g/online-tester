@@ -33,16 +33,22 @@ export class SolveDialogComponent implements OnInit {
     if(this.form.invalid) return true;
 
     const fData = this.form.value;
-    this.solveService.fetchTest(fData.testCode);
-    this.router.navigate([`/solve/${fData.testCode}`]);
-    // .subscribe(
-    //   res => {
-    //     this.router.navigate([`/solve/${fData.testCode}`]);
-    //   },
-    //   err => {
-    //     this.form.reset();
-    //   }
-    // )
+    const personalInfo = {
+      "firstName": fData.firstName,
+      "lastName": fData.lastName,
+      "email": fData.email
+    }
+    this.solveService.fetchTest(fData.testCode, personalInfo)
+    .subscribe(
+      res => {
+        this.solveService.setTest(res.test);
+        this.router.navigate([`/solve/${fData.testCode}`]);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+    
   }
 
 }

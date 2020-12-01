@@ -27,6 +27,7 @@ import { Popup } from './_components/create-test/popup/popup';
 import { QuestionComponent } from './_components/create-test/question/question.component';
 import { SolveDialogComponent } from './_components/solve-test/solve-dialog/solve-dialog.component';
 import { TestQuestionComponent } from './_components/solve-test/test-question/test-question.component';
+import { TimerComponent } from './_components/solve-test/timer/timer.component';
 
 const materialImports = [
     MatToolbarModule,
@@ -52,7 +53,8 @@ const materialImports = [
     Popup,
     QuestionComponent,
     SolveDialogComponent,
-    TestQuestionComponent
+    TestQuestionComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
