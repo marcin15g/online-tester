@@ -110,37 +110,9 @@ export class CreateTestComponent implements OnInit {
 
   onSubmit() {
     if(this.dynamicForm.invalid) return;
-    const test = this.dynamicForm.value;
+    this.formTest = this.dynamicForm.value;
 
-    this.formTest = test;
     this.openDialog();
-
-    // if(this.mode === 'create') {
-    //   this.formTest = test;
-    //   this.openDialog();
-    //   this.uploadService.uploadTest(test)
-    //   .subscribe(
-    //     res => { 
-    //       this.testID = res.testCode;
-    //       this.openDialog();
-    //     },
-    //     err => {
-    //       console.log(err);
-    //     }
-    //   )
-    // }
-    // else if(this.mode === 'modify') {
-    //   this.editService.editTest(this.testID, test)
-    //   .subscribe(
-    //     res => {
-    //       console.log(res);
-    //       this.openDialog();
-    //     },
-    //     err => {
-    //       console.log(err);
-    //     }
-    //   );
-    // }
   }
 
   onReset() {

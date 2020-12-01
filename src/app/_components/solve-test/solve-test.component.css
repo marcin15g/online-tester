@@ -1,0 +1,10 @@
+mat-card {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 2em;
+}
+h1#title {
+    text-align: center;
+    font-size: 3em;
+    margin: 1em 0;
+}

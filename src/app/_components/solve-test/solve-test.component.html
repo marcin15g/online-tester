@@ -1,1 +1,13 @@
-<p>solve-test works!</p>
+<mat-card id="main">
+    <h1 id="title">{{test.title}}</h1>
+    <form [formGroup]='testForm'>
+        <app-test-question 
+            *ngFor="let question of q.controls; let index=index" 
+            [question]="question" 
+            [index]="index">
+        </app-test-question>
+    </form>
+    <div id="buttons-row">
+         <button mat-raised-button color='primary' (click)="onSubmit()">Submit</button>
+    </div>
+</mat-card>

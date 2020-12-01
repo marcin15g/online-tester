@@ -1,0 +1,16 @@
+mat-card {
+    margin: 2em 1em;
+}
+div#q-name {
+    margin: 2em 1em;
+    text-align: justify;
+    font-weight: bold;
+    opacity: 0.8;
+}
+.q-answer {
+    margin: 2em;
+    display: flex;
+}
+.q-answer mat-checkbox {
+    margin-right: 1em;
+}

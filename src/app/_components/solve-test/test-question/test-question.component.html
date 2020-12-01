@@ -1,0 +1,26 @@
+<mat-card id="question-card" [formGroup]='question'>
+    <mat-card-title>
+        <span>Question {{index + 1}}</span>
+    </mat-card-title>
+    <mat-card-content>
+        <div>
+            <div id="q-name">
+                <!-- <mat-form-field>
+                    <mat-label>Question</mat-label>
+                    <textarea matInput formControlName="question" [readonly]="true"></textarea>
+                </mat-form-field> -->
+                <span>{{q.question.value}}</span>
+            </div>
+            <div id="q-answers"> 
+                <div class="q-answer" *ngFor='let singleAnswer of answers.controls; let i = index;' [formGroup]="singleAnswer">
+                    <mat-checkbox formControlName="checked"></mat-checkbox>
+                    <span>{{singleAnswer.controls.answer.value}}</span>
+                    <!-- <mat-form-field>
+                        <mat-label>Answer {{i + 1}}</mat-label>
+                        <input matInput formControlName="answer" [readonly]="true">
+                    </mat-form-field>                     -->
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card> 

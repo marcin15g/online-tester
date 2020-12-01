@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SolveService } from '../../../_services/solve.service';
 import { TestService } from '../../../_services/test.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class SolveDialogComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private testService: TestService,
+    private solveService: SolveService,
     public router: Router
   ) { }
 
@@ -31,15 +33,16 @@ export class SolveDialogComponent implements OnInit {
     if(this.form.invalid) return true;
 
     const fData = this.form.value;
-    this.testService.checkIfTestExists(fData.testCode)
-    .subscribe(
-      res => {
-        this.router.navigate([`/solve/${fData.testCode}`]);
-      },
-      err => {
-        this.form.reset();
-      }
-    )
+    this.solveService.fetchTest(fData.testCode);
+    this.router.navigate([`/solve/${fData.testCode}`]);
+    // .subscribe(
+    //   res => {
+    //     this.router.navigate([`/solve/${fData.testCode}`]);
+    //   },
+    //   err => {
+    //     this.form.reset();
+    //   }
+    // )
   }
 
 }
