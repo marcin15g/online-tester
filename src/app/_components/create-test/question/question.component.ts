@@ -25,6 +25,7 @@ export class QuestionComponent implements OnInit {
       this.addAnswer();
       this.addAnswer();
       this.addAnswer();
+      this.addAnswer();
     }
   }
 
