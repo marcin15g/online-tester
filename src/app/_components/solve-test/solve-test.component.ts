@@ -81,7 +81,11 @@ export class SolveTestComponent implements OnInit {
     console.log(this.testForm.value)
     this.solveService.uploadTest(this.testID, this.resultUUID,this.testForm.value)
     .subscribe(
-      res => {console.log('RES:::: ', res)},
+      res => {
+        this.cookieService.delete("resultUUID");
+        localStorage.removeItem(this.resultUUID);
+        console.log('RES:::: ', res);
+      },
       err => {console.log(err);}
     )
   }
