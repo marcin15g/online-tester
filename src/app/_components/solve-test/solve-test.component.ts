@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { SolveService } from '../../_services/solve.service';
 
 @Component({
@@ -10,30 +11,43 @@ import { SolveService } from '../../_services/solve.service';
 })
 export class SolveTestComponent implements OnInit {
 
-  test;
-  testForm: FormGroup
+  test: object;
+  testForm: FormGroup;
+  resultUUID: string;
+  testID: string;
 
   constructor(
     private solveService: SolveService,
+    private cookieService: CookieService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.test = this.solveService.getTest();
-    if(!this.test) {
-      this.router.navigate(['/']);
-    }
-    else {
-      this.testForm = this.formBuilder.group({
-        id: [null],
-        firstName: [null],
-        lastName: [null],
-        email: [null],
-        questions: new FormArray([])
-      });
-      this.populateForm(this.test);     
-    }
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if(paramMap.has('testID')) {
+        //Get testID from url params
+        this.testID = paramMap.get("testID");
+
+        //Search for active session
+        this.resultUUID = this.cookieService.get("resultUUID");
+        if(!this.resultUUID) {
+          this.router.navigate(['/']);
+        }
+        else {
+          //Fetch test from local storage and populate the form
+          this.test = JSON.parse(localStorage.getItem(this.resultUUID));
+          this.testForm = this.formBuilder.group({
+            id: [null],
+            questions: new FormArray([])
+          });
+          this.populateForm(this.test);   
+          console.log(this.test);  
+        }
+      }
+    })
   }
 
   get f() {return this.testForm.controls}
@@ -63,7 +77,13 @@ export class SolveTestComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.testForm.value);
+    if(this.testForm.invalid) return;
+    console.log(this.testForm.value)
+    this.solveService.uploadTest(this.testID, this.resultUUID,this.testForm.value)
+    .subscribe(
+      res => {console.log('RES:::: ', res)},
+      err => {console.log(err);}
+    )
   }
 
 }

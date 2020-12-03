@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { SolveService } from '../../../_services/solve.service';
 import { TestService } from '../../../_services/test.service';
 
@@ -17,6 +18,7 @@ export class SolveDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private testService: TestService,
     private solveService: SolveService,
+    private cookieService: CookieService,
     public router: Router
   ) { }
 
@@ -41,15 +43,13 @@ export class SolveDialogComponent implements OnInit {
     this.solveService.fetchTest(fData.testCode, personalInfo)
     .subscribe(
       res => {
-        console.log(res);
-        this.solveService.setTest(res.body.test);
+        this.cookieService.set("resultUUID", res.body.resultUUID, {expires: new Date(res.body.finishedAt)});
+        localStorage.setItem(res.body.resultUUID, JSON.stringify(res.body.test));
         this.router.navigate([`/solve/${fData.testCode}`]);
       },
       err => {
         console.log(err);
       }
-    )
-    
+    )   
   }
-
 }
