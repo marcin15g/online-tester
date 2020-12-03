@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SolveService } from '../../_services/solve.service';
 
 @Component({
@@ -14,29 +15,31 @@ export class SolveTestComponent implements OnInit {
 
   constructor(
     private solveService: SolveService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.test = this.solveService.getTest();
-    console.log(document.cookie);
-
-    this.testForm = this.formBuilder.group({
-      id: [null],
-      firstName: [null],
-      lastName: [null],
-      email: [null],
-      questions: new FormArray([])
-    });
-    this.populateForm(this.test);
+    if(!this.test) {
+      this.router.navigate(['/']);
+    }
+    else {
+      this.testForm = this.formBuilder.group({
+        id: [null],
+        firstName: [null],
+        lastName: [null],
+        email: [null],
+        questions: new FormArray([])
+      });
+      this.populateForm(this.test);     
+    }
   }
 
   get f() {return this.testForm.controls}
   get q() {return this.f.questions as FormArray}
 
   populateForm(test) {
-    console.log(test);
-    console.log(this.f);
     this.f.id.setValue(test.id);
     
     for(let i = 0; i < test.questions.length; i++ ) {

@@ -41,7 +41,8 @@ export class SolveDialogComponent implements OnInit {
     this.solveService.fetchTest(fData.testCode, personalInfo)
     .subscribe(
       res => {
-        this.solveService.setTest(res.test);
+        console.log(res);
+        this.solveService.setTest(res.body.test);
         this.router.navigate([`/solve/${fData.testCode}`]);
       },
       err => {
