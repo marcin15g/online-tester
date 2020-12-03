@@ -18,7 +18,7 @@ export class SolveService {
 
   fetchTest(testID: string, personalInfo: object) {
     this.user = personalInfo;
-    return this.http.post<any>(this.serverUrl + '/start/' + testID, {result: personalInfo}, {observe: 'response'});
+    return this.http.post<any>(this.serverUrl + '/start/' + testID, {result: personalInfo}, {observe: 'response', withCredentials: true});
   }
 
   setTest(test) {
