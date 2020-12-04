@@ -5,6 +5,8 @@ mat-card {
     right: 1em;
     display: flex;
     justify-content: center;
+    background-color: #026670;
+    color: white;
 }
 span {
     font-weight: bold;

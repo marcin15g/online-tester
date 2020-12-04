@@ -20,6 +20,7 @@ export class TimerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.startTime, this.duration)
     this.subscription = interval(1000)
     .subscribe(x => {this.getTimeDifference();})
   }

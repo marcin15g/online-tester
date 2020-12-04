@@ -16,6 +16,9 @@ export class SolveTestComponent implements OnInit {
   resultUUID: string;
   testID: string;
 
+  startTime: number;
+  duration: number;
+
   constructor(
     private solveService: SolveService,
     private cookieService: CookieService,
@@ -38,7 +41,12 @@ export class SolveTestComponent implements OnInit {
         }
         else {
           //Fetch test from local storage and populate the form
-          this.test = JSON.parse(localStorage.getItem(this.resultUUID));
+          const storedTest = JSON.parse(localStorage.getItem(this.resultUUID));
+          this.test = storedTest.test;
+          this.startTime = new Date(storedTest.createdAt).getTime();
+          this.duration = storedTest.test.testTime;
+          console.log(storedTest);
+
           this.testForm = this.formBuilder.group({
             id: [null],
             questions: new FormArray([])
@@ -85,6 +93,7 @@ export class SolveTestComponent implements OnInit {
         this.cookieService.delete("resultUUID");
         localStorage.removeItem(this.resultUUID);
         console.log('RES:::: ', res);
+        this.router.navigate(["/"]);
       },
       err => {console.log(err);}
     )

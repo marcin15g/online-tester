@@ -44,7 +44,8 @@ export class SolveDialogComponent implements OnInit {
     .subscribe(
       res => {
         this.cookieService.set("resultUUID", res.body.resultUUID, {expires: new Date(res.body.finishedAt)});
-        localStorage.setItem(res.body.resultUUID, JSON.stringify(res.body.test));
+        localStorage.setItem(res.body.resultUUID, JSON.stringify(res.body));
+
         this.router.navigate([`/solve/${fData.testCode}`]);
       },
       err => {
