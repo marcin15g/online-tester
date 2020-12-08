@@ -11,9 +11,10 @@ export class EditService {
 
   private serverUrl: string = environment.apiUrl;
   private testObj: object;
+  private password: string;
 
-  getTest(testID: string) {
-    return this.http.get<{test: object}>(`${this.serverUrl}/${testID}`);
+  getTest(testID: string, password: string) {
+    return this.http.post<{test: object}>(`${this.serverUrl}/get`, {test: {"testCode": testID, "password": password}});
   }
 
   editTest(testID: string, test: object) {
@@ -23,4 +24,7 @@ export class EditService {
   deleteTest(testID: string) {
     return this.http.delete<any>(`${this.serverUrl}/${testID}`);
   }
+
+  setPassword(password: string) {this.password = password;}
+  getPassword() {return this.password}
 }

@@ -29,7 +29,7 @@ export class EditDialogComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       testID: ['', Validators.required],
-      password: ['admin', Validators.required]
+      password: ['', Validators.required]
     });
   }
 
@@ -38,13 +38,14 @@ export class EditDialogComponent implements OnInit {
     const testID = this.form.value.testID;
     const pwd = this.form.value.password;
 
-    this.testService.checkIfTestExists(testID)
+    this.editService.setPassword(pwd);
+    this.editService.getTest(testID, pwd)
     .subscribe(
       res => {
         this.router.navigate(['create/' + testID]);
       },
       err => {
-        this._snackBar.open('Test Code is incorrect', 'Dismiss', {
+        this._snackBar.open('Incorrect Code or Password', 'Dismiss', {
           duration: 5000,
           panelClass: ['red-snackbar']
         });       
