@@ -1,10 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { EditService } from '../../_services/edit.service';
 import { UploadService } from '../../_services/upload.service';
 import { Popup } from './popup/popup';
+
+
+export function validateNumOfQuestions(
+  control: AbstractControl
+): ValidationErrors | null {
+  if(control && control.get("numOfQuestions") && control.get("numOfTestQuestions")) {
+    const num = control.get("numOfQuestions").value;
+    const testNum = control.get("numOfTestQuestions").value;
+    
+    return (testNum > num) ? {numOfQuestionsError: true} : null
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-create-test',
@@ -35,24 +48,28 @@ export class CreateTestComponent implements OnInit {
     this.dynamicForm = this.formBuilder.group({
       id: [null],
       title: ['', Validators.required],
-      numOfQuestions: [1],
-      numOfTestQuestions: [null],
+      numOfQuestions: [1, [Validators.required, Validators.min(1)]],
+      numOfTestQuestions: [1, [Validators.required, Validators.min(1)]],
+      testTime: [15, [Validators.required, Validators.min(1)]],
       questions: new FormArray([]),
       randomize: [true]
-    })
+    }, {validators: validateNumOfQuestions})
 
     //Set create/modify mode
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
         if(paramMap.has('testID')) {
           this.mode = 'modify';
           this.testID = paramMap.get("testID");
-          this.editService.getTest(this.testID)
+          this.editService.getTest(this.testID, this.editService.getPassword())
           .subscribe(
             res => {
               this.testObj = res.test;
               this.populateForm(this.testObj);
             },
-            err => {console.log(err)}
+            err => {
+              console.log(err);
+              this.router.navigate(['/']);
+            }
           );
         } else {
           this.mode = 'create';
@@ -129,6 +146,7 @@ export class CreateTestComponent implements OnInit {
     this.f.title.setValue(test.title);   
     this.f.numOfTestQuestions.setValue(test.numOfTestQuestions);
     this.f.numOfQuestions.setValue(test.questions.length);
+    this.f.testTime.setValue(test.testTime);
 
     for(let i = 0; i < test.questions.length; i++) {
       let q = test.questions[i];

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-question',
@@ -32,7 +32,7 @@ export class QuestionComponent implements OnInit {
   addAnswer(): void {
     this.answers.push(this.formBuilder.group({
       id: [null],
-      answer: [""],
+      answer: ["", Validators.required],
       correct: [false]
     }));
   }

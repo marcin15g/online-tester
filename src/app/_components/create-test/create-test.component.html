@@ -1,4 +1,5 @@
 <mat-card id="main">
+    <div *ngIf="dynamicForm.hasError('numOfQuestionsError')">AEEEEEEEEe</div>
     <form [formGroup]='dynamicForm'>
         <div id="top-form">
             <div id="title-form">
@@ -11,10 +12,17 @@
                 <mat-form-field>
                         <mat-label>Number of questions</mat-label>
                     <input matInput type="number" formControlName="numOfQuestions" (change)="onChangeQuestions($event.target.value)">
+                    <mat-error *ngIf="f.numOfQuestions.invalid">Wrong number of questions</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Test questions</mat-label>
                     <input matInput type="number" formControlName="numOfTestQuestions">
+                    <mat-error *ngIf="1">Wrong number of test questions</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Time</mat-label>
+                    <input matInput type="number" formControlName="testTime" placeholder="Test time in minutes">
+                    <mat-error *ngIf="f.testTime.invalid">Test time is incorrect</mat-error>
                 </mat-form-field>
                 <div id='randomize'>
                     <mat-label>Randomize: </mat-label>

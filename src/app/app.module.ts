@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { CommonModule } from '@angular/common';
 
 //Angular Material 
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -29,6 +30,7 @@ import { QuestionComponent } from './_components/create-test/question/question.c
 import { SolveDialogComponent } from './_components/solve-test/solve-dialog/solve-dialog.component';
 import { TestQuestionComponent } from './_components/solve-test/test-question/test-question.component';
 import { TimerComponent } from './_components/solve-test/timer/timer.component';
+import { ResultComponent } from './_components/solve-test/result/result.component';
 
 const materialImports = [
     MatToolbarModule,
@@ -55,7 +57,8 @@ const materialImports = [
     QuestionComponent,
     SolveDialogComponent,
     TestQuestionComponent,
-    TimerComponent
+    TimerComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,9 @@ const materialImports = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     materialImports,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
+
     
   ],
   providers: [CookieService],
