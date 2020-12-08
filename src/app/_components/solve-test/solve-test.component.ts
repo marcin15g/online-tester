@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { SolveService } from '../../_services/solve.service';
+import { ResultComponent } from './result/result.component';
+
+
 
 @Component({
   selector: 'app-solve-test',
@@ -15,6 +19,7 @@ export class SolveTestComponent implements OnInit {
   testForm: FormGroup;
   resultUUID: string;
   testID: string;
+  isSubmitted: boolean = false;
 
   startTime: number;
   duration: number;
@@ -24,7 +29,8 @@ export class SolveTestComponent implements OnInit {
     private cookieService: CookieService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -45,14 +51,12 @@ export class SolveTestComponent implements OnInit {
           this.test = storedTest.test;
           this.startTime = new Date(storedTest.createdAt).getTime();
           this.duration = storedTest.test.testTime;
-          console.log(storedTest);
 
           this.testForm = this.formBuilder.group({
             id: [null],
             questions: new FormArray([])
           });
           this.populateForm(this.test);   
-          console.log(this.test);  
         }
       }
     })
@@ -86,17 +90,31 @@ export class SolveTestComponent implements OnInit {
 
   onSubmit() {
     if(this.testForm.invalid) return;
-    console.log(this.testForm.value)
     this.solveService.uploadTest(this.testID, this.resultUUID,this.testForm.value)
     .subscribe(
       res => {
         this.cookieService.delete("resultUUID");
         localStorage.removeItem(this.resultUUID);
-        console.log('RES:::: ', res);
-        this.router.navigate(["/"]);
+        this.isSubmitted = true;
+        this.openResult(res.percentResult);
       },
       err => {console.log(err);}
     )
+  }
+
+  openResult(result: number) {
+    const dialogRef = this.dialog.open(ResultComponent,
+      {
+        width: '500px',
+        data: {result: result}
+      });
+    dialogRef.afterClosed().subscribe(res => {
+      this.router.navigate(["/"]);
+    })
+  }
+
+  timeEnded() {
+    this.onSubmit();
   }
 
 }

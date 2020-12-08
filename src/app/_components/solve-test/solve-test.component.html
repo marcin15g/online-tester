@@ -13,4 +13,4 @@
          <button mat-raised-button color='primary' (click)="onSubmit()">Submit</button>
     </div>
 </mat-card>
-<app-timer [startTime]='startTime' [duration]='duration'></app-timer>
+<app-timer [startTime]='startTime' [duration]='duration' [isSubmitted]="isSubmitted" (timeEnded)="timeEnded()" (click)="timeEnded()"></app-timer>

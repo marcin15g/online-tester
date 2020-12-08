@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
 @Component({
@@ -10,6 +10,9 @@ export class TimerComponent implements OnInit {
 
   @Input() startTime;
   @Input() duration;
+  @Input() isSubmitted;
+
+  @Output() timeEnded = new EventEmitter();
 
   subscription: Subscription;
 
@@ -28,8 +31,10 @@ export class TimerComponent implements OnInit {
   private getTimeDifference() {
     this.timeDiff = (this.startTime + this.duration * 60 * 1000) - new Date().getTime();
 
-    if(this.timeDiff > 0) this.allocateTimeUnits(this.timeDiff);
+    if(this.isSubmitted) this.subscription.unsubscribe();
+    else if(this.timeDiff > 0) this.allocateTimeUnits(this.timeDiff);
     else {
+      this.timeEnded.emit(true);
       this.subscription.unsubscribe();
       this.minutesLeft = '00';
       this.secondsLeft = '00';
