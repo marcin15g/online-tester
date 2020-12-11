@@ -1,24 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { EditService } from '../../_services/edit.service';
 import { UploadService } from '../../_services/upload.service';
 import { Popup } from './popup/popup';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
-export function validateNumOfQuestions(
-  control: AbstractControl
-): ValidationErrors | null {
-  if(control && control.get("numOfQuestions") && control.get("numOfTestQuestions")) {
-    const num = control.get("numOfQuestions").value;
-    const testNum = control.get("numOfTestQuestions").value;
-    
-    return (testNum > num) ? {numOfQuestionsError: true} : null
-  }
-  return null;
-}
+import { validateNumOfQuestions } from '../../_helpers/validator';
 
 @Component({
   selector: 'app-create-test',
