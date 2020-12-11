@@ -8,3 +8,12 @@ h1#title {
     font-size: 3em;
     margin: 1em 0;
 }
+div#buttons-row {
+    display: flex;
+    justify-content: flex-end;
+}
+div#buttons-row > button {
+    width: 10em;
+    height: 3em;
+    margin: 0 1em;
+}

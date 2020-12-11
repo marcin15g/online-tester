@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { EditService } from '../../../_services/edit.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { TestService } from '../../../_services/test.service';
+import { TestCreate } from '../../../_models/create/test-create.model';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class EditDialogComponent implements OnInit {
       res => {     
         this.isLoading = false;  
         this.editService.setPassword(pwd);
-        this.editService.setTest(res.test);
+        this.editService.setTest(<TestCreate>res.test);
         this.router.navigate(['create/' + testID]);
       },
       err => {

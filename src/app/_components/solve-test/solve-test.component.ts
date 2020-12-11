@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { TestSolve } from '../../_models/solve/test-solve.model';
 import { SolveService } from '../../_services/solve.service';
 import { ResultComponent } from './result/result.component';
 
@@ -15,7 +16,7 @@ import { ResultComponent } from './result/result.component';
 })
 export class SolveTestComponent implements OnInit {
 
-  test: object;
+  test: TestSolve;
   testForm: FormGroup;
   resultUUID: string;
   testID: string;

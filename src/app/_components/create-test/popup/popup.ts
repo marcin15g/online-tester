@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { TestCreate } from '../../../_models/create/test-create.model';
 import { EditService } from '../../../_services/edit.service';
 import { UploadService } from '../../../_services/upload.service';
 
 export interface DialogData {
     testID: string
     mode: string
-    test: object
+    test: TestCreate
   }
 
 @Component({

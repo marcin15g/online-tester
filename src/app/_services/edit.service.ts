@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment'
+import { TestCreate } from '../_models/create/test-create.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,14 @@ export class EditService {
   constructor(private http: HttpClient) { }
 
   private serverUrl: string = environment.apiUrl;
-  private test: object;
+  private test: TestCreate;
   private password: string;
 
   fetchTest(testID: string, password: string) {
-    return this.http.post<{test: object}>(`${this.serverUrl}/get`, {test: {"testCode": testID, "password": password}});
+    return this.http.post<{test: TestCreate}>(`${this.serverUrl}/get`, {test: {"testCode": testID, "password": password}});
   }
 
-  editTest(testID: string, test: object) {
+  editTest(testID: string, test: TestCreate) {
     return this.http.patch<any>(`${this.serverUrl}/${testID}`, {test: test});
   }
 
@@ -28,6 +29,6 @@ export class EditService {
   setPassword(password: string) {this.password = password;}
   getPassword() {return this.password}
 
-  setTest(test: object) {this.test = test;}
+  setTest(test: TestCreate) {this.test = test;}
   getTest() {return this.test;}
 }

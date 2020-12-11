@@ -8,9 +8,9 @@
             [question]="question" 
             [index]="index">
         </app-test-question>
+        <div id="buttons-row">
+            <button mat-raised-button color='primary' (click)="onSubmit()">Submit</button>
+       </div>
     </form>
-    <div id="buttons-row">
-         <button mat-raised-button color='primary' (click)="onSubmit()">Submit</button>
-    </div>
 </mat-card>
 <app-timer [startTime]='startTime' [duration]='duration' [isSubmitted]="isSubmitted" (timeEnded)="timeEnded()" (click)="timeEnded()"></app-timer>
