@@ -1,5 +1,5 @@
 <div *ngIf="data.mode==='create'; else modified">
-    <div *ngIf="!testID" id="add-password">
+    <div *ngIf="!testID && !isLoading" id="add-password">
         <h1 mat-dialog-title>Almost there!</h1>
         <div mat-dialog-content id="content">
             <form [formGroup]="form">
@@ -14,7 +14,10 @@
             <button mat-raised-button color='primary' (click)="onSubmit()">Submit</button>
         </div>
     </div>
-    <div *ngIf="testID">
+    <div *ngIf="!testID && isLoading" id="loading">
+        <mat-spinner color="primary"></mat-spinner>
+    </div>
+    <div *ngIf="testID && !isLoading">
         <h1 mat-dialog-title>Your test has been saved!</h1>
         <div mat-dialog-content id="content">
             <span id="test-id">{{testID}}</span>
@@ -51,13 +54,5 @@
             <button mat-raised-button color='primary' (click)="onClose()">Thanks!</button>
         </div>
     </div>
-    <!-- <h1 mat-dialog-title>Your test has been succesfully modified!</h1>
-    <div mat-dialog-content id="content">
-        <span id="test-id">{{data.testID}}</span>
-        <span id="desc">The code above allows anyone to participate in the test</span>
-    </div>
-    <div mat-dialog-actions id="buttons">
-        <button mat-raised-button color='primary' (click)="onClose()">Thanks!</button>
-    </div> -->
 </ng-template>
 

@@ -10,10 +10,10 @@ export class EditService {
   constructor(private http: HttpClient) { }
 
   private serverUrl: string = environment.apiUrl;
-  private testObj: object;
+  private test: object;
   private password: string;
 
-  getTest(testID: string, password: string) {
+  fetchTest(testID: string, password: string) {
     return this.http.post<{test: object}>(`${this.serverUrl}/get`, {test: {"testCode": testID, "password": password}});
   }
 
@@ -27,4 +27,7 @@ export class EditService {
 
   setPassword(password: string) {this.password = password;}
   getPassword() {return this.password}
+
+  setTest(test: object) {this.test = test;}
+  getTest() {return this.test;}
 }

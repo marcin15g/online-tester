@@ -1,5 +1,5 @@
 <div id="wrapper">
-    <mat-card>
+    <mat-card *ngIf="!isLoading">
         <form [formGroup]="form">
             <mat-form-field>
                 <mat-label>Test Code</mat-label>
@@ -12,7 +12,9 @@
         </form>
         <div id="btn-row">
             <button mat-raised-button color="accent" (click)="onEdit()">EDIT</button>
-            <button mat-raised-button color="warn" (click)="onDelete()">DELETE</button>
         </div>
+    </mat-card>
+    <mat-card *ngIf="isLoading" id="loading">
+        <mat-spinner color="primary"></mat-spinner>
     </mat-card>
 </div>

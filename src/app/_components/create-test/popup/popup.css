@@ -11,6 +11,12 @@ div#content  {
     flex-direction: column;
     margin: 1em 0;
 }
+div#loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
 span#test-id {
     font-weight: bold;
     font-size: 2rem;

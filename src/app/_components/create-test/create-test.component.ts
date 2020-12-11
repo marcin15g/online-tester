@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { EditService } from '../../_services/edit.service';
 import { UploadService } from '../../_services/upload.service';
 import { Popup } from './popup/popup';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export function validateNumOfQuestions(
@@ -26,7 +27,7 @@ export function validateNumOfQuestions(
 })
 export class CreateTestComponent implements OnInit {
 
-  private mode: string = 'create';
+  mode: string = 'create';
   dynamicForm: FormGroup;
   visibleQuestions: number = 1;
   testObj;
@@ -35,6 +36,7 @@ export class CreateTestComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, 
+    private snackBar: MatSnackBar,
     public uploadService: UploadService,
     public editService: EditService,
     public route: ActivatedRoute,
@@ -60,17 +62,13 @@ export class CreateTestComponent implements OnInit {
         if(paramMap.has('testID')) {
           this.mode = 'modify';
           this.testID = paramMap.get("testID");
-          this.editService.getTest(this.testID, this.editService.getPassword())
-          .subscribe(
-            res => {
-              this.testObj = res.test;
-              this.populateForm(this.testObj);
-            },
-            err => {
-              console.log(err);
-              this.router.navigate(['/']);
-            }
-          );
+
+          this.testObj = this.editService.getTest();
+          if(this.testObj) {
+            this.populateForm(this.testObj);
+          } else {
+            this.router.navigate(['/']);
+          }
         } else {
           this.mode = 'create';
           this.addQuestion();
@@ -138,6 +136,19 @@ export class CreateTestComponent implements OnInit {
 
   onClear() {
     this.t.reset();
+  }
+
+  onDelete() {
+    this.editService.deleteTest(this.testID)
+    .subscribe(
+      res => {
+        this.snackBar.open('Test succesfully deleted!', 'Dismiss', {
+          duration: 5000
+        });
+        this.router.navigate(['/']);
+      },
+      err => {console.log(err);}
+    )
   }
 
   populateForm(test) {

@@ -105,7 +105,7 @@ export class SolveTestComponent implements OnInit {
   openResult(result: number) {
     const dialogRef = this.dialog.open(ResultComponent,
       {
-        width: '500px',
+        width: '400px',
         data: {result: result}
       });
     dialogRef.afterClosed().subscribe(res => {

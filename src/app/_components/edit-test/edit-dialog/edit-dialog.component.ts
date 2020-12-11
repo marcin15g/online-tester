@@ -15,6 +15,7 @@ import { TestService } from '../../../_services/test.service';
 export class EditDialogComponent implements OnInit {
 
   private mode: string = "modify";
+  isLoading: boolean = false;
   form: FormGroup;
 
   constructor(
@@ -37,38 +38,23 @@ export class EditDialogComponent implements OnInit {
     if(this.form.invalid) return;
     const testID = this.form.value.testID;
     const pwd = this.form.value.password;
+    this.isLoading = true;
 
-    this.editService.setPassword(pwd);
-    this.editService.getTest(testID, pwd)
+    this.editService.fetchTest(testID, pwd)
     .subscribe(
-      res => {
+      res => {     
+        this.isLoading = false;  
+        this.editService.setPassword(pwd);
+        this.editService.setTest(res.test);
         this.router.navigate(['create/' + testID]);
       },
       err => {
+        this.isLoading = false;
+        this.form.reset();
         this._snackBar.open('Incorrect Code or Password', 'Dismiss', {
           duration: 5000,
           panelClass: ['red-snackbar']
         });       
-      }
-    )
-  }
-
-  onDelete() {
-    if(this.form.invalid) return;
-    const testID = this.form.value.testID;
-    const pwd = this.form.value.password;
-
-    this.editService.deleteTest(testID)
-    .subscribe(
-      res => {
-        this._snackBar.open('Test succesfully deleted', 'DIsmiss', {
-          duration: 5000,
-          panelClass: ['green-snackbar']
-        });
-        this.router.navigate(['/']);
-      },
-      err => {
-        console.log(err)
       }
     )
   }

@@ -2,6 +2,9 @@ div#btn-row {
     display: flex; 
     justify-content: flex-end; 
 }
+button {
+    flex-grow: 1;
+}
 div#score {
     font-weight: bolder;
     font-size: 8em;

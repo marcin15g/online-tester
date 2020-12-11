@@ -19,6 +19,8 @@ export interface DialogData {
 
     form: FormGroup;
     testID: string;
+    private isSubmitted: boolean = false;
+    private isLoading: boolean = false;
 
 
     constructor(
@@ -30,7 +32,6 @@ export interface DialogData {
     ) {}
 
     ngOnInit() {
-      console.log(this.data.mode);
       this.form = this.formBuilder.group({
         password: ['', Validators.required]
       })
@@ -39,7 +40,10 @@ export interface DialogData {
     onClose() { this.dialogRef.close(); }
 
     onSubmit() {
-      if(this.form.invalid) return;
+      if(this.form.invalid || this.isSubmitted) return;
+      
+      this.isSubmitted = true;
+      this.isLoading = true;
       const test = this.data.test;
       test['password'] = this.form.value.password;
 
@@ -47,6 +51,7 @@ export interface DialogData {
         this.uploadService.uploadTest(test)
         .subscribe(
           res => { 
+            this.isLoading = false;
             this.testID = res.testCode;
           },
           err => {
@@ -57,6 +62,7 @@ export interface DialogData {
         this.editService.editTest(this.data.testID, test)
         .subscribe(
           res => { 
+            this.isLoading = false;
             this.testID = this.data.testID;
           },
           err => {

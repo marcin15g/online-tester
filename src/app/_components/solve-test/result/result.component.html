@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Thanks for participating!</h1>
 <div mat-dialog-content>
-    <div id="headline">Your: score</div>
+    <div id="headline">Your score:</div>
     <div id="score" [ngClass]="(data.result > 50) ? 'green-score':'red-score'">{{data.result | number: '1.0-0'}}%</div>
 </div>
 <div mat-dialog-actions id="btn-row">
