@@ -146,6 +146,7 @@ export class CreateTestComponent implements OnInit {
     this.f.numOfTestQuestions.setValue(test.numOfTestQuestions);
     this.f.numOfQuestions.setValue(test.questions.length);
     this.f.testTime.setValue(test.testTime);
+    this.f.randomize.setValue(test.randomize);
 
     for(let i = 0; i < test.questions.length; i++) {
       let q = test.questions[i];
