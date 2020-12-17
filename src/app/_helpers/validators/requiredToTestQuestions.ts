@@ -15,8 +15,6 @@ export function requiredToTestQuestions (
             if(q.required) numOfRequired++;
         })
 
-        console.log(numOfRequired);
-    
         if(testNum < numOfRequired) {
             const testControl = control.get('numOfTestQuestions');
             if(testControl) testControl.setErrors({"lessThanRequired" : true});

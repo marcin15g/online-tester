@@ -29,7 +29,7 @@
     </div>
 </div>
 <ng-template #modified>
-    <div *ngIf="!testID" id="add-password">
+    <div *ngIf="!testID && !isLoading" id="add-password">
         <h1 mat-dialog-title>Almost there!</h1>
         <div mat-dialog-content id="content">
             <form [formGroup]="form">
@@ -44,7 +44,10 @@
             <button mat-raised-button color='primary' (click)="onSubmit()">Submit</button>
         </div>
     </div>
-    <div *ngIf="testID">
+    <div *ngIf="!testID && isLoading" id="loading">
+        <mat-spinner color="primary"></mat-spinner>
+    </div>    
+    <div *ngIf="testID && !isLoading">
         <h1 mat-dialog-title>Your test has been modified!</h1>
         <div mat-dialog-content id="content">
             <span id="test-id">{{testID}}</span>
