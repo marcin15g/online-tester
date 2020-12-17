@@ -6,7 +6,8 @@ import { EditService } from '../../_services/edit.service';
 import { UploadService } from '../../_services/upload.service';
 import { Popup } from './popup/popup';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { validateNumOfQuestions } from '../../_helpers/validator';
+import { questionsToTestQuestions } from '../../_helpers/validators/questionsToTestQuestions';
+import { requiredToTestQuestions } from '../../_helpers/validators/requiredToTestQuestions';
 
 @Component({
   selector: 'app-create-test',
@@ -43,7 +44,7 @@ export class CreateTestComponent implements OnInit {
       testTime: [15, [Validators.required, Validators.min(1)]],
       questions: new FormArray([]),
       randomize: [true]
-    }, {validators: validateNumOfQuestions})
+    }, {validators: [questionsToTestQuestions, requiredToTestQuestions]})
 
     //Set create/modify mode
     this.route.paramMap.subscribe((paramMap: ParamMap) => {

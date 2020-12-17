@@ -18,6 +18,7 @@
                     <input matInput type="number" formControlName="numOfTestQuestions">
                     <mat-error *ngIf="f.numOfTestQuestions.hasError('min')">Wrong number of test questions</mat-error>
                     <mat-error *ngIf="f.numOfTestQuestions.hasError('moreThanNum')">Too many test questions</mat-error>
+                    <mat-error *ngIf="f.numOfTestQuestions.hasError('lessThanRequired')">Too many required questions</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Time</mat-label>

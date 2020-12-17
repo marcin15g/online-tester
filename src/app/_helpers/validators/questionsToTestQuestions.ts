@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors } from "@angular/forms";
 
-export function validateNumOfQuestions(
+export function questionsToTestQuestions(
     control: AbstractControl
   ): ValidationErrors | null {
     if(control && control.get("numOfQuestions") && control.get("numOfTestQuestions")) {
