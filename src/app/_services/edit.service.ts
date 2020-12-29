@@ -15,15 +15,15 @@ export class EditService {
   private password: string;
 
   fetchTest(testID: string, password: string) {
-    return this.http.post<{test: TestCreate}>(`${this.serverUrl}/get`, {test: {"testCode": testID, "password": password}});
+    return this.http.post<{test: TestCreate}>(`${this.serverUrl}/get/${testID}`, {test: {"password": password}});
   }
 
   editTest(testID: string, test: TestCreate) {
     return this.http.patch<any>(`${this.serverUrl}/${testID}`, {test: test});
   }
 
-  deleteTest(testID: string) {
-    return this.http.delete<any>(`${this.serverUrl}/${testID}`);
+  deleteTest(testID: string, password: string) {
+    return this.http.request('delete', `${this.serverUrl}/${testID}`, {body: {test: {password: password}}});
   }
 
   setPassword(password: string) {this.password = password;}

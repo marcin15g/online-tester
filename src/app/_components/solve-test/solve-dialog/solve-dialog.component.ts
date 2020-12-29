@@ -24,7 +24,7 @@ export class SolveDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       testCode: ['', Validators.required]
@@ -40,6 +40,8 @@ export class SolveDialogComponent implements OnInit {
       "lastName": fData.lastName,
       "email": fData.email
     }
+    console.log(personalInfo);
+
     this.solveService.fetchTest(fData.testCode, personalInfo)
     .subscribe(
       res => {

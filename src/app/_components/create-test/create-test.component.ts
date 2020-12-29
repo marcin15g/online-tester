@@ -128,16 +128,18 @@ export class CreateTestComponent implements OnInit {
   }
 
   onDelete() {
-    this.editService.deleteTest(this.testID)
-    .subscribe(
-      res => {
-        this.snackBar.open('Test succesfully deleted!', 'Dismiss', {
-          duration: 5000
-        });
-        this.router.navigate(['/']);
-      },
-      err => {console.log(err);}
-    )
+    const pwd = this.editService.getPassword();
+    if(pwd) {this.editService.deleteTest(this.testID, pwd)
+      .subscribe(
+        res => {
+          this.snackBar.open('Test succesfully deleted!', 'Dismiss', {
+            duration: 5000
+          });
+          this.router.navigate(['/']);
+        },
+        err => {console.log(err);}
+      )
+    }
   }
 
   populateForm(test) {
