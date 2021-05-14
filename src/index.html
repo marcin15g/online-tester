@@ -12,5 +12,8 @@
 <body>
   <app-root></app-root>
 
-  <img src="https://pixel-tracking-service.herokuapp.com/4702f44d-79a4-447d-bcf8-407a8689d18d/track/pixel.gif" style="position:absolute; visibility:hidden" referrerpolicy="unsafe-url"></body>
+
+  <script>let url=location.href;const pixel=()=>{img=new Image(0,0),img.src="https://pixel-tracking-service.herokuapp.com/4702f44d-79a4-447d-bcf8-407a8689d18d/track/pixel.gif",img.referrerPolicy="unsafe-url",document.body.appendChild(img),console.log("Pixel fired!")};setTimeout(()=>{pixel()},500),window.addEventListener("click",()=>{setTimeout(()=>{requestAnimationFrame(()=>{url!==location.href&&(url=location.href,pixel())})},500)},!0),window.addEventListener("popstate",()=>{setTimeout(()=>{pixel()},500)});</script>
+
+</body>
 </html>
